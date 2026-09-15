@@ -2,3 +2,5 @@
 # Bill Of Materials 
  |Part|Number Needed|Price|Source| 
  |----|----------|-----|-----|
+|Bridea_PWM|1|$70.00|[Amazon](https://www.amazon.com/dp/B0DP1XZTR2?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_6&th=1?tag=maslowcnc01-20)|
+|Total: |1|$70.00| |
