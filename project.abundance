@@ -1,13 +1,233 @@
 {
-    "atomType": "Molecule",
-    "x": 0,
-    "y": 0,
-    "uniqueID": "id-135502",
-    "name": "Briidea_PWM",
-    "topLevel": true,
-    "allAtoms": [],
-    "allConnectors": [],
-    "unitsKey": "Inches",
-    "fileTypeVersion": 1,
-    "filetypeVersion": 1
+  "atomType": "Molecule",
+  "x": 0,
+  "y": 0,
+  "uniqueID": "id-135502",
+  "name": "Briidea_PWM",
+  "topLevel": true,
+  "allAtoms": [
+    {
+      "atomType": "Output",
+      "x": 1,
+      "y": 0.5,
+      "uniqueID": "id-135503",
+      "ioValues": [
+        {
+          "name": "number or geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
+    },
+    {
+      "atomType": "Rectangle",
+      "x": 0.1,
+      "y": 0.7,
+      "uniqueID": "id-135505",
+      "ioValues": [
+        {
+          "name": "x length",
+          "ioValue": 7.9,
+          "currentEquation": "7.9"
+        },
+        {
+          "name": "y length",
+          "ioValue": 6.4,
+          "currentEquation": "6.4"
+        }
+      ]
+    },
+    {
+      "atomType": "Add-BOM-Tag",
+      "x": 0.4,
+      "y": 0.5,
+      "uniqueID": "id-135509",
+      "name": "Add BOM Tag",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Item Name",
+          "ioValue": "Bridea_PWM",
+          "currentEquation": "Bridea_PWM"
+        },
+        {
+          "name": "Number Needed",
+          "ioValue": 1
+        },
+        {
+          "name": "Cost (USD)",
+          "ioValue": 70
+        },
+        {
+          "name": "Source Link",
+          "ioValue": "https://www.amazon.com/dp/B0DP1XZTR2?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_6&th=1",
+          "currentEquation": "https://www.amazon.com/dp/B0DP1XZTR2?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_6&th=1"
+        }
+      ],
+      "BOMitem": {
+        "BOMitemName": "Bridea_PWM",
+        "numberNeeded": 1,
+        "costUSD": 70,
+        "source": "https://www.amazon.com/dp/B0DP1XZTR2?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_6&th=1"
+      }
+    },
+    {
+      "atomType": "Extrude",
+      "x": 0.2,
+      "y": 0.6,
+      "uniqueID": "id-135522",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "height",
+          "ioValue": 4.2,
+          "currentEquation": "4.2"
+        }
+      ]
+    },
+    {
+      "atomType": "GitHubMolecule",
+      "x": 0.6,
+      "y": 0.6,
+      "uniqueID": "id-135531",
+      "name": "phys.SetMass",
+      "ioValues": [
+        {
+          "name": "assembly",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "mass",
+          "ioValue": 1,
+          "currentEquation": "1"
+        }
+      ],
+      "topLevel": false,
+      "allAtoms": [
+        {
+          "atomType": "Output",
+          "x": 1,
+          "y": 0.5,
+          "uniqueID": "id-135527",
+          "ioValues": [
+            {
+              "name": "number or geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ]
+        },
+        {
+          "atomType": "Input",
+          "x": 0,
+          "y": 0.1,
+          "uniqueID": "id-135528",
+          "name": "assembly",
+          "type": "geometry",
+          "options": []
+        },
+        {
+          "atomType": "Code",
+          "x": 0.4,
+          "y": 0.7,
+          "uniqueID": "id-135529",
+          "ioValues": [
+            {
+              "name": "assembly",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "mass",
+              "ioValue": 1
+            }
+          ],
+          "interpreterVersion": 1,
+          "code": "// Set mass\nfunction run(assembly: Assembly, mass: number) {\n  const initial = assembly.metadata ? assembly.metadata : {}\n  initial.mass = mass;\n  assembly.metadata = initial;\n  return assembly?.skipDisjointPostprocess();\n}",
+          "compiledCode": "\"use strict\";\n// Set mass\nfunction run(assembly, mass) {\n    const initial = assembly.metadata ? assembly.metadata : {};\n    initial.mass = mass;\n    assembly.metadata = initial;\n    return assembly?.skipDisjointPostprocess();\n}\n"
+        },
+        {
+          "atomType": "Input",
+          "x": 0,
+          "y": 0.2,
+          "uniqueID": "id-135530",
+          "name": "mass",
+          "options": []
+        }
+      ],
+      "allConnectors": [
+        {
+          "ap2Name": "assembly",
+          "ap1ID": "id-135528",
+          "ap2ID": "id-135529"
+        },
+        {
+          "ap2Name": "number or geometry",
+          "ap1ID": "id-135529",
+          "ap2ID": "id-135527"
+        },
+        {
+          "ap2Name": "mass",
+          "ap1ID": "id-135530",
+          "ap2ID": "id-135529"
+        }
+      ],
+      "parentRepo": {
+        "lastFoundGit": "2026-09-15T18:23:38.997Z",
+        "repoName": "phys.SetMass",
+        "dateCreated": "2026-08-12T16:42:56Z",
+        "likes": 0,
+        "readMe": "https://raw.githubusercontent.com/tristan-huber/phys.SetMass/master/README.md?sanitize=true",
+        "yyyy": 2026,
+        "topMoleculeID": "id-43071",
+        "githubMoleculesUsed": [],
+        "html_url": "https://github.com/tristan-huber/phys.SetMass",
+        "topics": [
+          "abundance-tool"
+        ],
+        "pullRequests": [],
+        "parentRepo": null,
+        "forks": 0,
+        "dateModified": "739840",
+        "ranking": 0.6,
+        "searchField": "phys.setmass tristan-huber adds a mass to the metadata of an assembly. in general this superseed masses of the leafs of an assembly. consumed by other physics methods in utils. arbitrary units.",
+        "owner": "tristan-huber",
+        "description": "Adds a mass to the metadata of an assembly. In general this superseed masses of the leafs of an assembly. Consumed by other physics methods in utils. Arbitrary units.",
+        "contentURL": "https://raw.githubusercontent.com/tristan-huber/phys.SetMass/master/project.abundance?sanitize=true",
+        "svgURL": "https://raw.githubusercontent.com/tristan-huber/phys.SetMass/master/project.svg?sanitize=true",
+        "isLocal": false
+      },
+      "unitsKey": "Unitless",
+      "fileTypeVersion": 1,
+      "lastReloadedFromGithubAt": 1789510501728
+    }
+  ],
+  "allConnectors": [
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-135505",
+      "ap2ID": "id-135522"
+    },
+    {
+      "ap2Name": "assembly",
+      "ap1ID": "id-135509",
+      "ap2ID": "id-135531"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-135522",
+      "ap2ID": "id-135509"
+    },
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-135531",
+      "ap2ID": "id-135503"
+    }
+  ],
+  "unitsKey": "Inches",
+  "fileTypeVersion": 1,
+  "filetypeVersion": 1
 }
