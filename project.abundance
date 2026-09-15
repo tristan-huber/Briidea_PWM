@@ -26,13 +26,11 @@
       "ioValues": [
         {
           "name": "x length",
-          "ioValue": 7.9,
-          "currentEquation": "7.9"
+          "ioValue": 7.9
         },
         {
           "name": "y length",
-          "ioValue": 6.4,
-          "currentEquation": "6.4"
+          "ioValue": 6.4
         }
       ]
     },
@@ -85,8 +83,7 @@
         },
         {
           "name": "height",
-          "ioValue": 0.125,
-          "currentEquation": "0.125"
+          "ioValue": 0.125
         }
       ]
     },
@@ -103,8 +100,7 @@
         },
         {
           "name": "mass",
-          "ioValue": 1,
-          "currentEquation": "1"
+          "ioValue": 1
         }
       ],
       "topLevel": false,
@@ -212,8 +208,7 @@
       "ioValues": [
         {
           "name": "diameter",
-          "ioValue": 0.125,
-          "currentEquation": "0.125"
+          "ioValue": 0.125
         }
       ]
     },
@@ -227,7 +222,7 @@
     },
     {
       "atomType": "Constant",
-      "x": 0,
+      "x": 0.1,
       "y": 0.7,
       "uniqueID": "id-135548",
       "name": "length",
@@ -423,8 +418,7 @@
         },
         {
           "name": "zDist",
-          "ioValue": -0.5,
-          "currentEquation": "-0.5"
+          "ioValue": -0.5
         }
       ]
     },
@@ -440,8 +434,7 @@
         },
         {
           "name": "height",
-          "ioValue": 1,
-          "currentEquation": "1"
+          "ioValue": 1
         }
       ]
     },
@@ -467,7 +460,7 @@
         {
           "name": "x length",
           "ioValue": 6.9,
-          "currentEquation": "7.9 - 1"
+          "currentEquation": "width - 1"
         },
         {
           "name": "y length",
@@ -487,8 +480,7 @@
         },
         {
           "name": "height",
-          "ioValue": 4.2,
-          "currentEquation": "4.2"
+          "ioValue": 4.2
         }
       ]
     },
@@ -589,11 +581,6 @@
       "ap2ID": "id-135612"
     },
     {
-      "ap2Name": "number or geometry",
-      "ap1ID": "id-135531",
-      "ap2ID": "id-135503"
-    },
-    {
       "ap2Name": "geometry",
       "ap1ID": "id-135543",
       "ap2ID": "id-135552"
@@ -607,11 +594,6 @@
       "ap2Name": "x length",
       "ap1ID": "id-135546",
       "ap2ID": "id-135505"
-    },
-    {
-      "ap2Name": "x length",
-      "ap1ID": "id-135546",
-      "ap2ID": "id-135600"
     },
     {
       "ap2Name": "y length",
@@ -641,11 +623,6 @@
     {
       "ap2Name": "Shape 2",
       "ap1ID": "id-135564",
-      "ap2ID": "id-135582"
-    },
-    {
-      "ap2Name": "Shape 1",
-      "ap1ID": "id-135573",
       "ap2ID": "id-135582"
     },
     {
@@ -687,6 +664,16 @@
       "ap2Name": "Shape 1",
       "ap1ID": "id-135612",
       "ap2ID": "id-135608"
+    },
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-135531",
+      "ap2ID": "id-135503"
+    },
+    {
+      "ap2Name": "Shape 1",
+      "ap1ID": "id-135573",
+      "ap2ID": "id-135582"
     }
   ],
   "unitsKey": "Inches",
