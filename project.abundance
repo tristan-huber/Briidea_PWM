@@ -20,7 +20,7 @@
     },
     {
       "atomType": "Rectangle",
-      "x": 0.1,
+      "x": 0.2,
       "y": 0.7,
       "uniqueID": "id-135505",
       "ioValues": [
@@ -85,8 +85,8 @@
         },
         {
           "name": "height",
-          "ioValue": 4.2,
-          "currentEquation": "4.2"
+          "ioValue": 0.125,
+          "currentEquation": "0.125"
         }
       ]
     },
@@ -203,6 +203,61 @@
       "unitsKey": "Unitless",
       "fileTypeVersion": 1,
       "lastReloadedFromGithubAt": 1789510501728
+    },
+    {
+      "atomType": "Circle",
+      "x": 0.2,
+      "y": 0.3,
+      "uniqueID": "id-135543",
+      "ioValues": [
+        {
+          "name": "diameter",
+          "ioValue": 0.125,
+          "currentEquation": "0.125"
+        }
+      ]
+    },
+    {
+      "atomType": "Constant",
+      "x": 0.1,
+      "y": 0.5,
+      "uniqueID": "id-135546",
+      "name": "width",
+      "value": 7.9
+    },
+    {
+      "atomType": "Constant",
+      "x": 0,
+      "y": 0.7,
+      "uniqueID": "id-135548",
+      "name": "length",
+      "value": 6.4
+    },
+    {
+      "atomType": "Move",
+      "x": 0.2,
+      "y": 0.3,
+      "uniqueID": "id-135552",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "xDist",
+          "ioValue": 3.825,
+          "currentEquation": "width / 2 - 0.125"
+        },
+        {
+          "name": "yDist",
+          "ioValue": 2.2,
+          "currentEquation": "length / 2 - 1"
+        },
+        {
+          "name": "zDist",
+          "ioValue": 0
+        }
+      ]
     }
   ],
   "allConnectors": [
@@ -225,6 +280,21 @@
       "ap2Name": "number or geometry",
       "ap1ID": "id-135531",
       "ap2ID": "id-135503"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-135543",
+      "ap2ID": "id-135552"
+    },
+    {
+      "ap2Name": "x length",
+      "ap1ID": "id-135546",
+      "ap2ID": "id-135505"
+    },
+    {
+      "ap2Name": "y length",
+      "ap1ID": "id-135548",
+      "ap2ID": "id-135505"
     }
   ],
   "unitsKey": "Inches",
