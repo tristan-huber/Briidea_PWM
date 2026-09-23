@@ -120,7 +120,7 @@
         {
           "atomType": "Input",
           "x": 0,
-          "y": 0.2,
+          "y": 0.1,
           "uniqueID": "id-135528",
           "name": "assembly",
           "type": "geometry",
@@ -334,7 +334,7 @@
         {
           "atomType": "Input",
           "x": 0,
-          "y": 0.2,
+          "y": 0.1,
           "uniqueID": "id-135572",
           "name": "assembly",
           "options": []
@@ -601,6 +601,235 @@
       ],
       "interpreterVersion": 1,
       "code": "\n/**\n * =========================================================================\n *  ABUNDANCE CODE ATOM — Quick Reference\n * =========================================================================\n *\n *  HOW INPUTS WORK\n *  ---------------\n *  Every parameter of run() becomes an input port on this atom.\n *  Four types are supported:\n *\n *    number   -> numeric input / slider\n *    string   -> text input  (great for hex color codes, labels, etc.)\n *    boolean  -> true/false toggle\n *    Assembly -> geometry -- wire this to the output of another atom\n *\n *  Give a parameter a default value ( = x ) to make it optional.\n *  Mark it with ? (name?: Assembly) to make it optional with no default.\n *  Parameters without a default must be connected before the atom runs.\n *\n *  RETURN VALUE\n *  ------------\n *  Return an Assembly, an Assembly[], or a primitive (number/string/boolean).\n *  Returning an Assembly[] lets downstream atoms (BOM, cut layout...)\n *  see each piece independently.\n *\n *  GEOMETRY API  (replicad is available as a global)\n *  -------------------------------------------------\n *  Create 2-D sketches\n *    replicad.drawCircle(radius)\n *    replicad.drawRectangle(width, height)\n *    replicad.drawRoundedRectangle(width, height, cornerRadius)\n *\n *  Turn a 2-D sketch into a 3-D solid\n *    sketch.sketchOnPlane().extrude(distance)\n *    sketch.sketchOnPlane().revolve()          // rotate 360 deg around Z\n *\n *  Create 3-D primitives directly\n *    replicad.makeBaseBox(width, depth, height)\n *    replicad.makeSphere(radius)\n *    replicad.makeCylinder(radius, height)\n *\n *  Boolean operations\n *    solidA.fuse(solidB)                       // union\n *    solidA.cut(solidB)                        // difference (cut a hole)\n *    solidA.intersect(solidB)                  // intersection\n *\n *  Post-processing\n *    solid.fillet(radius)                      // round ALL edges\n *    solid.fillet(r, e => e.inPlane(\"XY\", z))  // round only top-face edges\n *    solid.chamfer(distance)                   // bevel ALL edges\n *    solid.translate(x, y, z)                  // move the solid\n *    solid.rotate(angle, [0, 0, 1])            // rotate around Z axis\n *\n *  ASSEMBLY CLASS\n *  --------------\n *  Wrap any replicad solid in an Assembly to attach display metadata:\n *    new Assembly({ geometry, color, tags, bom })\n *      geometry -> replicad solid / drawing returned by the API above\n *      color    -> hex string shown in the 3-D viewport  (\"#A3CE5B\")\n *      tags     -> string[] used for filtering in cut layout / BOM\n *      bom      -> string[] lines added to the Bill of Materials panel\n *\n *  AI PROMPT TIP\n *  -------------\n *  Copy the code in this editor into ChatGPT / Claude and say something like:\n *    \"Modify this Abundance Code Atom to create a gear with 12 teeth\"\n *    \"Change this to make a hexagonal nut instead of a round plate\"\n *  The comments above give the AI all the context it needs to produce\n *  valid, working Abundance TypeScript code.\n * =========================================================================\n */\n\n/**\n * A rectangular mounting plate with a circular hole in the centre.\n * All parameters have defaults so the atom produces geometry immediately\n * after creation — no connections required to get started.\n */\nfunction run(\n  width: number = 40,        \n  depth: number = 30,       \n  thickness: number = 5,    \n  holeRadius: number = 6,   \n  color: string = \"#5B9BD5\", \n  addFillet: boolean = true, \n  extra?: Assembly           \n) {\n  // ── Step 1: Create the base solid ────────────────────────────────────────\n  // makeBaseBox(width, depth, height) places a box with one corner at the\n  // origin.  Translate it so the hole will be centred at (0, 0).\n  let plate = replicad\n    .makeBaseBox(width, depth, thickness)\n    .translate(-width / 2, -depth / 2, 0);\n\n  // ── Step 2: Cut a through-hole in the centre ──────────────────────────────\n  // Extrude a circle slightly taller than the plate so the cut goes all the\n  // way through.  Start 1 mm below the bottom face to avoid coplanar issues.\n  const holeCutter = replicad\n    .drawCircle(holeRadius)\n    .sketchOnPlane()\n    .extrude(thickness + 2)\n    .translate(0, 0, -1);\n\n  plate = plate.cut(holeCutter);\n\n  // ── Step 3: Optional fillet on the top-face edges ────────────────────────\n  // inPlane(\"XY\", thickness) selects only the edges that lie in the\n  // horizontal plane at z = thickness (i.e. the top face of the plate).\n  if (addFillet) {\n    plate = plate.fillet(1.5, (e) => e.inPlane(\"XY\", thickness));\n  }\n\n  // ── Step 4: Wrap in an Assembly to set display properties ─────────────────\n  const plateAssembly = new Assembly({\n    geometry: plate,\n    color: color,\n    tags: [\"plate\", \"mounting-plate\"],\n    bom: [`Mounting plate ${width}×${depth}×${thickness} mm`],\n  });\n\n  // ── Step 5: Combine with any upstream geometry ────────────────────────────\n  // Returning an array lets each piece stay independent for the BOM and\n  // cut-layout atoms.  If nothing is connected, `extra` is undefined.\n  const results: Assembly[] = [plateAssembly];\n  if (extra) results.push(extra);\n  return results;\n}\n"
+    },
+    {
+      "atomType": "GitHubMolecule",
+      "x": 0.5,
+      "y": 0.6,
+      "uniqueID": "id-135788",
+      "name": "Sphere",
+      "ioValues": [
+        {
+          "name": "Radius",
+          "ioValue": 10
+        }
+      ],
+      "topLevel": false,
+      "allAtoms": [
+        {
+          "atomType": "Output",
+          "x": 1,
+          "y": 0.5,
+          "uniqueID": "id-135784",
+          "ioValues": [
+            {
+              "name": "number or geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ]
+        },
+        {
+          "atomType": "Code",
+          "x": 0.5,
+          "y": 0.4,
+          "uniqueID": "id-135785",
+          "ioValues": [
+            {
+              "name": "radius",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ],
+          "interpreterVersion": 0,
+          "code": "//Inputs:[radius];\n\n//let shape = replicad.makeSphere(radius)\n\nconst newPlane = new replicad.Plane().pivot(0, 'Y');\n\n return { geometry: [replicad.makeSphere(radius)], tags: [],\n      color: '#A3CE5B',\n      bom:[],\n      plane: newPlane}\n\n\n    /**\n    To Use the Code Atom, enter your inputs to the input list a.e Inputs:[shape, height]\n    If your input is connected to another atom with a replicad geometry you can access its geometry by looking up its ID in your library. a.e library[Input1].geometry[0] \n    Use any replicad available methods to modify your geometry. Learn more about all of the available methods at \n    https://replicad.xyz/docs/introapp/UserGuide.html \n    Return a replicad object that includes geometry, color, tags and plane. \n\n\n    Example Code Atom:\n\n      Inputs:[shape, x];\n\n      let finalShape = library[shape].geometry[0].clone.translate[x,0,0]\n\n      return {geometry: finalShape, color: library[shape].color, plane: library[shape].plane, tags: library[shape].tags }\n\n      - See more examples at _______ \n\n\n    */\n"
+        },
+        {
+          "atomType": "Input",
+          "x": 0,
+          "y": 0.1,
+          "uniqueID": "id-135786",
+          "name": "Radius",
+          "type": "number",
+          "options": []
+        },
+        {
+          "atomType": "Constant",
+          "x": 0.2,
+          "y": 0.9,
+          "uniqueID": "id-135787",
+          "value": 10
+        }
+      ],
+      "allConnectors": [
+        {
+          "ap2Name": "number or geometry",
+          "ap1ID": "id-135785",
+          "ap2ID": "id-135784"
+        },
+        {
+          "ap2Name": "radius",
+          "ap1ID": "id-135786",
+          "ap2ID": "id-135785"
+        }
+      ],
+      "parentRepo": {
+        "lastFoundGit": "2026-09-20T02:23:39.099Z",
+        "privateRepo": false,
+        "repoName": "Sphere",
+        "dateCreated": "2025-06-20T21:36:53Z",
+        "likes": 0,
+        "pngURL": "https://raw.githubusercontent.com/BarbourSmith/Sphere/master/project.png?sanitize=true",
+        "readme": "https://raw.githubusercontent.com/BarbourSmith/Sphere/master/README.md?sanitize=true",
+        "yyyy": 2025,
+        "topMoleculeID": "",
+        "userRanking": 0,
+        "userSetAsThumbnail": false,
+        "githubMoleculesUsed": [],
+        "html_url": "https://github.com/BarbourSmith/Sphere",
+        "topics": [],
+        "pullRequests": [],
+        "parentRepo": "alzatin/Sphere",
+        "forks": 0,
+        "dateModified": "2025-10-24T17:13:15Z",
+        "ranking": 1,
+        "searchField": "sphere barboursmith creates a sphere ",
+        "owner": "BarbourSmith",
+        "description": "Creates a sphere",
+        "contentURL": "https://raw.githubusercontent.com/BarbourSmith/Sphere/master/project.abundance?sanitize=true",
+        "svgURL": "https://raw.githubusercontent.com/BarbourSmith/Sphere/master/project.svg?sanitize=true",
+        "isLocal": false
+      },
+      "unitsKey": "Inches",
+      "fileTypeVersion": 1,
+      "lastReloadedFromGithubAt": 1790207515283
+    },
+    {
+      "atomType": "Export",
+      "x": 0.6,
+      "y": 0.6,
+      "uniqueID": "id-135798",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "File Type",
+          "ioValue": "STL",
+          "currentEquation": "STL"
+        },
+        {
+          "name": "Resolution (dpi)",
+          "ioValue": 96
+        },
+        {
+          "name": "Part Name",
+          "ioValue": "sphere",
+          "currentEquation": "sphere"
+        }
+      ],
+      "type": "STL",
+      "resolution": 96,
+      "importIndex": 0,
+      "partName": "sphere"
+    },
+    {
+      "atomType": "GitHubMolecule",
+      "x": 0.4,
+      "y": 0.5,
+      "uniqueID": "id-135808",
+      "name": "Sphere",
+      "ioValues": [
+        {
+          "name": "Radius",
+          "ioValue": 8
+        }
+      ],
+      "topLevel": false,
+      "allAtoms": [
+        {
+          "atomType": "Output",
+          "x": 1,
+          "y": 0.5,
+          "uniqueID": "id-135804",
+          "ioValues": [
+            {
+              "name": "number or geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ]
+        },
+        {
+          "atomType": "Code",
+          "x": 0.5,
+          "y": 0.5,
+          "uniqueID": "id-135805",
+          "ioValues": [
+            {
+              "name": "radius",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ],
+          "interpreterVersion": 0,
+          "code": "//Inputs:[radius];\n\n//let shape = replicad.makeSphere(radius)\n\nconst newPlane = new replicad.Plane().pivot(0, 'Y');\n\n return { geometry: [replicad.makeSphere(radius)], tags: [],\n      color: '#A3CE5B',\n      bom:[],\n      plane: newPlane}\n\n\n    /**\n    To Use the Code Atom, enter your inputs to the input list a.e Inputs:[shape, height]\n    If your input is connected to another atom with a replicad geometry you can access its geometry by looking up its ID in your library. a.e library[Input1].geometry[0] \n    Use any replicad available methods to modify your geometry. Learn more about all of the available methods at \n    https://replicad.xyz/docs/introapp/UserGuide.html \n    Return a replicad object that includes geometry, color, tags and plane. \n\n\n    Example Code Atom:\n\n      Inputs:[shape, x];\n\n      let finalShape = library[shape].geometry[0].clone.translate[x,0,0]\n\n      return {geometry: finalShape, color: library[shape].color, plane: library[shape].plane, tags: library[shape].tags }\n\n      - See more examples at _______ \n\n\n    */\n"
+        },
+        {
+          "atomType": "Input",
+          "x": 0,
+          "y": 0.1,
+          "uniqueID": "id-135806",
+          "name": "Radius",
+          "type": "number",
+          "options": []
+        },
+        {
+          "atomType": "Constant",
+          "x": 0.2,
+          "y": 0.9,
+          "uniqueID": "id-135807",
+          "value": 10
+        }
+      ],
+      "allConnectors": [
+        {
+          "ap2Name": "number or geometry",
+          "ap1ID": "id-135805",
+          "ap2ID": "id-135804"
+        },
+        {
+          "ap2Name": "radius",
+          "ap1ID": "id-135806",
+          "ap2ID": "id-135805"
+        }
+      ],
+      "parentRepo": {
+        "lastFoundGit": "2026-09-20T02:23:39.099Z",
+        "privateRepo": false,
+        "repoName": "Sphere",
+        "dateCreated": "2024-12-16T03:57:03Z",
+        "likes": 0,
+        "pngURL": "https://raw.githubusercontent.com/alzatin/Sphere/master/project.png?sanitize=true",
+        "readme": "https://raw.githubusercontent.com/alzatin/Sphere/master/README.md?sanitize=true",
+        "yyyy": 2024,
+        "topMoleculeID": "",
+        "userRanking": 0.2,
+        "userSetAsThumbnail": false,
+        "githubMoleculesUsed": [],
+        "html_url": "https://github.com/alzatin/Sphere",
+        "topics": [],
+        "pullRequests": [],
+        "forks": 1,
+        "dateModified": "2025-06-20T21:44:34Z",
+        "ranking": 1,
+        "searchField": "sphere alzatin creates a sphere ",
+        "owner": "alzatin",
+        "description": "Creates a sphere",
+        "contentURL": "https://raw.githubusercontent.com/alzatin/Sphere/master/project.abundance?sanitize=true",
+        "svgURL": "https://raw.githubusercontent.com/alzatin/Sphere/master/project.svg?sanitize=true",
+        "isLocal": false
+      },
+      "unitsKey": "Inches",
+      "fileTypeVersion": 1,
+      "lastReloadedFromGithubAt": 1790207640363
     }
   ],
   "allConnectors": [
@@ -713,6 +942,11 @@
       "ap2Name": "Shape 1",
       "ap1ID": "id-135573",
       "ap2ID": "id-135582"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-135788",
+      "ap2ID": "id-135798"
     }
   ],
   "unitsKey": "Inches",
