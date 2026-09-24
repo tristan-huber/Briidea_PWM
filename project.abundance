@@ -722,6 +722,10 @@
           "ioValue": 96
         },
         {
+          "name": "STL Tolerance",
+          "ioValue": 0.002
+        },
+        {
           "name": "Part Name",
           "ioValue": "sphere_3",
           "currentEquation": "sphere_3"
@@ -741,8 +745,7 @@
       "ioValues": [
         {
           "name": "Radius",
-          "ioValue": 0.1,
-          "currentEquation": "0.1"
+          "ioValue": 0.1
         }
       ],
       "topLevel": false,
@@ -841,8 +844,7 @@
       "ioValues": [
         {
           "name": "Offset",
-          "ioValue": 0,
-          "currentEquation": "0"
+          "ioValue": 0
         },
         {
           "name": "Angle X",
@@ -1135,8 +1137,7 @@
           "ioValues": [
             {
               "name": "diameter",
-              "ioValue": 2,
-              "currentEquation": "2"
+              "ioValue": 2
             }
           ]
         },
@@ -1160,8 +1161,7 @@
             },
             {
               "name": "zDist",
-              "ioValue": 5,
-              "currentEquation": "5"
+              "ioValue": 5
             }
           ]
         },
@@ -1239,7 +1239,7 @@
             },
             {
               "name": "Shape 3",
-              "ioValue": null
+              "ioValue": "__GEOMETRY_INPUT__"
             }
           ],
           "closedSelection": 0
@@ -1272,18 +1272,15 @@
             },
             {
               "name": "xDist",
-              "ioValue": -5,
-              "currentEquation": "-5"
+              "ioValue": -5
             },
             {
               "name": "yDist",
-              "ioValue": -2,
-              "currentEquation": "-2"
+              "ioValue": -2
             },
             {
               "name": "zDist",
-              "ioValue": 2.2,
-              "currentEquation": "2.2"
+              "ioValue": 2.2
             }
           ]
         },
@@ -1303,13 +1300,11 @@
             },
             {
               "name": "y-axis degrees",
-              "ioValue": 90,
-              "currentEquation": "90"
+              "ioValue": 90
             },
             {
               "name": "z-axis degrees",
-              "ioValue": 30,
-              "currentEquation": "30"
+              "ioValue": 30
             }
           ]
         },
@@ -1347,6 +1342,10 @@
             {
               "name": "Resolution (dpi)",
               "ioValue": 96
+            },
+            {
+              "name": "STL Tolerance",
+              "ioValue": 0.01
             },
             {
               "name": "Part Name",
