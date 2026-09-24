@@ -120,7 +120,7 @@
         {
           "atomType": "Input",
           "x": 0,
-          "y": 0.1,
+          "y": 0.2,
           "uniqueID": "id-135528",
           "name": "assembly",
           "type": "geometry",
@@ -334,7 +334,7 @@
         {
           "atomType": "Input",
           "x": 0,
-          "y": 0.1,
+          "y": 0.2,
           "uniqueID": "id-135572",
           "name": "assembly",
           "options": []
@@ -645,7 +645,7 @@
         {
           "atomType": "Input",
           "x": 0,
-          "y": 0.1,
+          "y": 0.2,
           "uniqueID": "id-135786",
           "name": "Radius",
           "type": "number",
@@ -722,10 +722,6 @@
           "ioValue": 96
         },
         {
-          "name": "STL Tolerance",
-          "ioValue": 0.002
-        },
-        {
           "name": "Part Name",
           "ioValue": "sphere_3",
           "currentEquation": "sphere_3"
@@ -779,7 +775,7 @@
         {
           "atomType": "Input",
           "x": 0,
-          "y": 0.1,
+          "y": 0.2,
           "uniqueID": "id-135806",
           "name": "Radius",
           "type": "number",
@@ -876,7 +872,7 @@
         {
           "atomType": "Input",
           "x": 0,
-          "y": 0.1,
+          "y": 0.2,
           "uniqueID": "id-135925",
           "name": "Geometry",
           "type": "number",
@@ -1153,7 +1149,8 @@
             },
             {
               "name": "xDist",
-              "ioValue": 0
+              "ioValue": 1,
+              "currentEquation": "1"
             },
             {
               "name": "yDist",
@@ -1186,7 +1183,7 @@
             {
               "name": "Shape 1",
               "ioValue": {
-                "geometry": "move-circle-1-0-0-0",
+                "geometry": "move-polysides-5-5-1-0-0",
                 "dimension": "2D",
                 "tags": [],
                 "plane": {
@@ -1213,7 +1210,7 @@
             {
               "name": "Shape 2",
               "ioValue": {
-                "geometry": "circle-5",
+                "geometry": "polysides-5-5",
                 "dimension": "2D",
                 "tags": [],
                 "plane": {
@@ -1344,32 +1341,35 @@
               "ioValue": 96
             },
             {
-              "name": "STL Tolerance",
-              "ioValue": 0.01
-            },
-            {
               "name": "Part Name",
-              "ioValue": "test",
-              "currentEquation": "test"
+              "ioValue": "weird",
+              "currentEquation": "weird"
             }
           ],
           "type": "STL",
           "resolution": 96,
           "importIndex": 0,
-          "partName": "test"
+          "partName": "weird"
+        },
+        {
+          "atomType": "RegularPolygon",
+          "x": 0.1,
+          "y": 0.6,
+          "uniqueID": "id-136197",
+          "ioValues": [
+            {
+              "name": "number of sides",
+              "ioValue": 5,
+              "currentEquation": "5"
+            },
+            {
+              "name": "diameter",
+              "ioValue": 10
+            }
+          ]
         }
       ],
       "allConnectors": [
-        {
-          "ap2Name": "Shape 2",
-          "ap1ID": "id-135979",
-          "ap2ID": "id-135991"
-        },
-        {
-          "ap2Name": "geometry",
-          "ap1ID": "id-135982",
-          "ap2ID": "id-135985"
-        },
         {
           "ap2Name": "geometry",
           "ap1ID": "id-135982",
@@ -1384,6 +1384,11 @@
           "ap2Name": "retain",
           "ap1ID": "id-135991",
           "ap2ID": "id-136012"
+        },
+        {
+          "ap2Name": "geometry",
+          "ap1ID": "id-135991",
+          "ap2ID": "id-136016"
         },
         {
           "ap2Name": "geometry",
@@ -1402,8 +1407,13 @@
         },
         {
           "ap2Name": "geometry",
-          "ap1ID": "id-136012",
-          "ap2ID": "id-136016"
+          "ap1ID": "id-136197",
+          "ap2ID": "id-135985"
+        },
+        {
+          "ap2Name": "Shape 2",
+          "ap1ID": "id-136197",
+          "ap2ID": "id-135991"
         }
       ],
       "fileTypeVersion": 1
